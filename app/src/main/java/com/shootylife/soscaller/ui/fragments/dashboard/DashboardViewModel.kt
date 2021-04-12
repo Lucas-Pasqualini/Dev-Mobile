@@ -1,4 +1,4 @@
-package com.shootylife.soscaller.ui.dashboard
+package com.shootylife.soscaller.ui.fragments.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
