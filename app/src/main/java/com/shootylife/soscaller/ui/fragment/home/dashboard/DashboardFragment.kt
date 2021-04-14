@@ -1,4 +1,4 @@
-package com.shootylife.soscaller.ui.dashboard
+package com.shootylife.soscaller.ui.fragment.home.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

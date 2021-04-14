@@ -1,4 +1,4 @@
-package com.shootylife.soscaller.ui.notifications
+package com.shootylife.soscaller.ui.fragment.home.notifications
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
