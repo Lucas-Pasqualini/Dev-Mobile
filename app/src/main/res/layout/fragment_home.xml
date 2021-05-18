@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
- <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,40 +11,40 @@
         android:id="@+id/btn_urgences"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:text="URGENCES 112"
         android:drawableTop="@drawable/ic_baseline_local_phone_24"
+        android:text="URGENCES 112"
         app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.471" />
+        app:layout_constraintVertical_bias="0.493" />
 
     <Button
         android:id="@+id/btn_pompiers"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:text="POMPIERS 18"
         android:drawableTop="@drawable/ic_baseline_local_fire_department_24"
+        android:text="POMPIERS 18"
         app:backgroundTint="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.471" />
+        app:layout_constraintVertical_bias="0.493" />
 
     <Button
         android:id="@+id/btn_samu"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:text="SAMU 15"
         android:drawableTop="@drawable/ic_baseline_healing_24"
+        android:text="SAMU 15"
         app:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.847" />
@@ -53,12 +53,12 @@
         android:id="@+id/btn_police"
         android:layout_width="180dp"
         android:layout_height="180dp"
-        android:text="POLICE 17"
         android:drawableTop="@drawable/ic_baseline_local_police_24"
+        android:text="POLICE 17"
         app:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
+        app:layout_constraintHorizontal_bias="0.069"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.847" />
