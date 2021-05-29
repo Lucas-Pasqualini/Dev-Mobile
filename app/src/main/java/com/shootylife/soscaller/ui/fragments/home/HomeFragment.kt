@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -29,7 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val permissionResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map ->
-        if (map.values.contains(false)) {
+        if (!map.values.contains(false)) {
             test.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION))
         }
     }
@@ -41,12 +42,16 @@ class HomeFragment : Fragment() {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
             fusedLocationClient.lastLocation
-                .addOnSuccessListener(requireActivity(), OnSuccessListener<Any?> {
-                    // Got last known location. In some rare situations this can be null.
-                })
-                .addOnFailureListener(requireActivity(), OnFailureListener { })
+                .addOnSuccessListener { location->
+                    if (location != null) {
+//                    Toast.makeText(requireContext(),(location.latitude).toString(), Toast.LENGTH_LONG)
+//                        .show()
+                        Log.d("latitudelongitude",(location.latitude).toString())
+                        Log.d("latitudelongitude",(location.longitude).toString())
+                    }
 
 
+             }
         }
 
     }
@@ -75,20 +80,24 @@ class HomeFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location->
-                if (location != null) {
-                    Log.d("latitudelongitude",(location.latitude).toString())
-                    Log.d("latitudelongitude",(location.longitude).toString())
-                }
 
-            }
         var pompiers = view.findViewById<Button>(R.id.btn_pompiers).setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "18"))
+//            fusedLocationClient.lastLocation
+//                .addOnSuccessListener { location->
+//                    if (location != null) {
+////                    Toast.makeText(requireContext(),(location.latitude).toString(), Toast.LENGTH_LONG)
+////                        .show()
+//                        Log.d("latitudelongitude",(location.latitude).toString())
+//                        Log.d("latitudelongitude",(location.longitude).toString())
+//                    }
             startActivity(intent)
 
 
-        }
+                }
+
+
+
         var urgences = view.findViewById<Button>(R.id.btn_urgences).setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "112"))
             startActivity(intent)
@@ -103,28 +112,28 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun getLastKnownLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.d("lat123",("test"))
-            ActivityCompat.requestPermissions(requireActivity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION), 1)
-            return
-        }
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location->
-                if (location != null) {
-                   Log.d("latitudelongitude",(location.latitude).toString())
-                    Log.d("latitudelongitude",(location.longitude).toString())
-                }
-
-            }
-
-    }
+//    fun getLastKnownLocation() {
+//        if (ActivityCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                requireActivity(),
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            Log.d("lat123",("test"))
+//            ActivityCompat.requestPermissions(requireActivity(),
+//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION), 1)
+//            return
+//        }
+//        fusedLocationClient.lastLocation
+//            .addOnSuccessListener { location->
+//                if (location != null) {
+//                   Log.d("latitudelongitude",(location.latitude).toString())
+//                    Log.d("latitudelongitude",(location.longitude).toString())
+//                }
+//
+//            }
+//
+//    }
 }
