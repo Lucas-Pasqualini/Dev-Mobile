@@ -126,14 +126,12 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-//       fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
         })
         return root
-        getLocation()
     }
 
 
@@ -149,62 +147,27 @@ class HomeFragment : Fragment() {
         getLocation()
 
         var pompiers = view.findViewById<Button>(R.id.btn_pompiers).setOnClickListener{
-//            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "18"))
-//                    Toast.makeText(requireContext(),(longitude + " " + latitude), Toast.LENGTH_LONG)
-//                        .show()
-//            startActivity(intent)
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "18"))
             getLocation()
+            startActivity(intent)
         }
 
-//        var urgences = view.findViewById<Button>(R.id.btn_urgences).setOnClickListener{
-//            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "112"))
-//            Toast.makeText(requireContext(),(longitude + " " + latitude), Toast.LENGTH_LONG)
-//                .show()
-//            startActivity(intent)
-//        }
-//
-//        var police = view.findViewById<Button>(R.id.btn_police).setOnClickListener{
-//            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "17"))
-//            Toast.makeText(requireContext(),(longitude + " " + latitude), Toast.LENGTH_LONG)
-//                .show()
-//            startActivity(intent)
-//        }
-//
-//        var samu = view.findViewById<Button>(R.id.btn_samu).setOnClickListener{
-//            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "15"))
-//            Toast.makeText(requireContext(),(longitude + " " + latitude), Toast.LENGTH_LONG)
-//                .show()
-//            startActivity(intent)
-//        }
+        var urgences = view.findViewById<Button>(R.id.btn_urgences).setOnClickListener{
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "112"))
+            getLocation()
+            startActivity(intent)
+        }
+
+        var police = view.findViewById<Button>(R.id.btn_police).setOnClickListener{
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "17"))
+            getLocation()
+            startActivity(intent)
+        }
+
+        var samu = view.findViewById<Button>(R.id.btn_samu).setOnClickListener{
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "15"))
+            getLocation()
+            startActivity(intent)
+        }
     }
-
-//    override fun onLocationChanged(p0: Location?) {
-//        latitude = p0?.latitude.toString()
-//        longitude = p0?.longitude.toString()
-//    }
-
-//    fun getLastKnownLocation() {
-//        if (ActivityCompat.checkSelfPermission(
-//                requireActivity(),
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                requireActivity(),
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            Log.d("lat123",("test"))
-//            ActivityCompat.requestPermissions(requireActivity(),
-//                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION), 1)
-//            return
-//        }
-//        fusedLocationClient.lastLocation
-//            .addOnSuccessListener { location->
-//                if (location != null) {
-//                   Log.d("latitudelongitude",(location.latitude).toString())
-//                    Log.d("latitudelongitude",(location.longitude).toString())
-//                }
-//
-//            }
-//
-//    }
 }
