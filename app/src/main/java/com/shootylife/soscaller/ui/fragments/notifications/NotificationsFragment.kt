@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.shootylife.soscaller.R
+import com.shootylife.soscaller.ui.adapters.CallListAdapters
 
 class NotificationsFragment : Fragment() {
 
@@ -19,13 +19,15 @@ class NotificationsFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
+        val adapter = CallListAdapters(listOf("a", "b", "c"))
+        // _binding.recyclerView.adapter = adapter
+
         notificationsViewModel =
                 ViewModelProvider(this).get(NotificationsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_notifications, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+        val rec = root.findViewById<RecyclerView>(R.id.recyclerView)
+        rec.adapter = adapter
         return root
     }
 }

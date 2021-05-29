@@ -6,11 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.shootylife.soscaller.R
 import com.shootylife.soscaller.databinding.FragmentDashboardBinding
 import com.shootylife.soscaller.utils.fragmentAutoCleared
 
