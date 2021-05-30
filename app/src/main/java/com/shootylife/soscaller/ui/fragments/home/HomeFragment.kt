@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -22,12 +23,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import android.location.LocationListener
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
+import android.widget.TextView
 import com.shootylife.soscaller.R
-import com.shootylife.soscaller.ui.activities.MainActivity
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -39,6 +42,29 @@ class HomeFragment : Fragment() {
     private var hasNetwork = false
     private  var locationGPS : Location? = null
     private  var locationNetwork : Location? = null
+
+    private var list: MutableList<String> = arrayOf("").toMutableList()
+
+    private fun loadData() {
+        val sharedPreferences: SharedPreferences? = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json: String? = sharedPreferences?.getString("CALL_LIST", "[]")
+        val type = object: TypeToken<ArrayList<String>>() {}.type
+        list = gson.fromJson(json, type)
+    }
+
+    private fun saveData() {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
+        list.add(currentDate.toString())
+
+        val sharedPreferences: SharedPreferences? = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
+        val gson = Gson()
+        val json: String = gson.toJson(list)
+        editor?.putString("CALL_LIST", json)
+        editor?.apply()
+    }
 
     @SuppressLint("MissingPermission")
     private fun getLocation(){
@@ -131,6 +157,8 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
         })
+        loadData()
+        getLocation()
         return root
     }
 
@@ -149,24 +177,28 @@ class HomeFragment : Fragment() {
         var pompiers = view.findViewById<Button>(R.id.btn_pompiers).setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "18"))
             getLocation()
+            saveData()
             startActivity(intent)
         }
 
         var urgences = view.findViewById<Button>(R.id.btn_urgences).setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "112"))
             getLocation()
+            saveData()
             startActivity(intent)
         }
 
         var police = view.findViewById<Button>(R.id.btn_police).setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "17"))
             getLocation()
+            saveData()
             startActivity(intent)
         }
 
         var samu = view.findViewById<Button>(R.id.btn_samu).setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "15"))
             getLocation()
+            saveData()
             startActivity(intent)
         }
     }
