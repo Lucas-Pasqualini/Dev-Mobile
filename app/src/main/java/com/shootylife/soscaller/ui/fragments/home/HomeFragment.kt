@@ -21,22 +21,22 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.location.FusedLocationProviderClient
 import android.location.LocationListener
 import android.widget.TextView
 import com.shootylife.soscaller.R
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.shootylife.soscaller.databinding.FragmentHomeBinding
+import com.shootylife.soscaller.utils.fragmentAutoCleared
 
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var _binding: FragmentHomeBinding by fragmentAutoCleared()
     private lateinit var locationManager: LocationManager
     private var hasGPS = false
     private var hasNetwork = false
@@ -53,10 +53,10 @@ class HomeFragment : Fragment() {
         list = gson.fromJson(json, type)
     }
 
-    private fun saveData() {
+    private fun saveData(call: String) {
         val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
         val currentDate = sdf.format(Date())
-        list.add(currentDate.toString())
+        list.add("$currentDate / $call")
 
         val sharedPreferences: SharedPreferences? = activity?.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor? = sharedPreferences?.edit()
@@ -66,76 +66,76 @@ class HomeFragment : Fragment() {
         editor?.apply()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getLocation(){
-        locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        hasGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-        hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
-
-        if (hasGPS||hasNetwork){
-            if (hasGPS){
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,0F, object : LocationListener{
-                    override fun onLocationChanged(location: Location?) {
-                        if (location != null){
-                            locationGPS = location
-                        }
-                    }
-
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onProviderEnabled(provider: String?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onProviderDisabled(provider: String?) {
-                        TODO("Not yet implemented")
-                    }
-                })
-               val localGPSLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-                if (localGPSLocation != null){
-                    locationGPS = localGPSLocation
-                }
-            }
-            if (hasNetwork){
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,5000,0F, object : LocationListener{
-                    override fun onLocationChanged(location: Location?) {
-                        if (location != null){
-                            locationNetwork = location
-                        }
-                    }
-
-                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onProviderEnabled(provider: String?) {
-                        TODO("Not yet implemented")
-                    }
-
-                    override fun onProviderDisabled(provider: String?) {
-                        TODO("Not yet implemented")
-                    }
-                })
-                val localNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-                if (localNetworkLocation != null){
-                    locationNetwork = localNetworkLocation
-                }
-            }
-            if ( locationGPS!= null && locationNetwork != null){
-                if (locationGPS!!.accuracy > locationNetwork!!.accuracy){
-                    Toast.makeText(requireContext(),("network"+locationNetwork!!.latitude+" "+ locationNetwork!!.longitude), Toast.LENGTH_LONG)
-                        .show()
-                }
-                else{
-                    Toast.makeText(requireContext(),("gps"+locationGPS!!.latitude+" "+ locationGPS!!.longitude), Toast.LENGTH_LONG)
-                        .show()
-                }
-            }
-
-        }
-    }
+//    @SuppressLint("MissingPermission")
+//    private fun getLocation(){
+//        locationManager = activity?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        hasGPS = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+//        hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+//
+//        if (hasGPS||hasNetwork){
+//            if (hasGPS){
+//                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,5000,0F, object : LocationListener{
+//                    override fun onLocationChanged(location: Location) {
+//                        if (location != null){
+//                            locationGPS = location
+//                        }
+//                    }
+//
+//                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                    override fun onProviderEnabled(provider: String) {
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                    override fun onProviderDisabled(provider: String) {
+//                        TODO("Not yet implemented")
+//                    }
+//                })
+//               val localGPSLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+//                if (localGPSLocation != null){
+//                    locationGPS = localGPSLocation
+//                }
+//            }
+//            if (hasNetwork){
+//                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,5000,0F, object : LocationListener{
+//                    override fun onLocationChanged(location: Location) {
+//                        if (location != null){
+//                            locationNetwork = location
+//                        }
+//                    }
+//
+//                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                    override fun onProviderEnabled(provider: String) {
+//                        TODO("Not yet implemented")
+//                    }
+//
+//                    override fun onProviderDisabled(provider: String) {
+//                        TODO("Not yet implemented")
+//                    }
+//                })
+//                val localNetworkLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+//                if (localNetworkLocation != null){
+//                    locationNetwork = localNetworkLocation
+//                }
+//            }
+//            if ( locationGPS!= null && locationNetwork != null){
+//                if (locationGPS!!.accuracy > locationNetwork!!.accuracy){
+//                    Toast.makeText(requireContext(),("network"+locationNetwork!!.latitude+" "+ locationNetwork!!.longitude), Toast.LENGTH_LONG)
+//                        .show()
+//                }
+//                else{
+//                    Toast.makeText(requireContext(),("gps"+locationGPS!!.latitude+" "+ locationGPS!!.longitude), Toast.LENGTH_LONG)
+//                        .show()
+//                }
+//            }
+//
+//        }
+//    }
 
     private val permissionResultLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { map ->
         if (!map.values.contains(false)) {
@@ -154,14 +154,13 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
                 ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
         })
         loadData()
-        getLocation()
-        return root
+        // getLocation()
+        return _binding.root
     }
-
 
     @SuppressLint("MissingPermission")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -172,33 +171,33 @@ class HomeFragment : Fragment() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             )
         )
-        getLocation()
+        // getLocation()
 
-        var pompiers = view.findViewById<Button>(R.id.btn_pompiers).setOnClickListener{
+        _binding.btnPompiers.setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "18"))
-            getLocation()
-            saveData()
+            // getLocation()
+            saveData("pompier")
             startActivity(intent)
         }
 
-        var urgences = view.findViewById<Button>(R.id.btn_urgences).setOnClickListener{
+        _binding.btnUrgences.setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "112"))
-            getLocation()
-            saveData()
+            // getLocation()
+            saveData("urgences")
             startActivity(intent)
         }
 
-        var police = view.findViewById<Button>(R.id.btn_police).setOnClickListener{
+        _binding.btnPolice.setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "17"))
-            getLocation()
-            saveData()
+            // getLocation()
+            saveData("police")
             startActivity(intent)
         }
 
-        var samu = view.findViewById<Button>(R.id.btn_samu).setOnClickListener{
+        _binding.btnSamu.setOnClickListener{
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "15"))
-            getLocation()
-            saveData()
+            // getLocation()
+            saveData("samu")
             startActivity(intent)
         }
     }
