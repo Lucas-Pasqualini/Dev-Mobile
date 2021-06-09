@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "438479832735",
+    "project_id": "dev-android-ae9c2",
+    "storage_bucket": "dev-android-ae9c2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438479832735:android:9417604b4572383a9584aa",
+        "android_client_info": {
+          "package_name": "com.shootylife.soscaller"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438479832735-51d5tfquij3fc00n6brde851jel19hrs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7_qacWVDZ_-tVwVILZr-Dr6joMdtgzTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438479832735-51d5tfquij3fc00n6brde851jel19hrs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

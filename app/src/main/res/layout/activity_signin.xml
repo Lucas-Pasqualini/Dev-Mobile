@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.SignupActivity">
+    tools:context=".ui.activities.SigninActivity">
 
     <fragment
-        android:id="@+id/signupfragment"
-        android:name="com.shootylife.soscaller.ui.fragments.account.SignupFragment"
+        android:id="@+id/signinfragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:name="com.shootylife.soscaller.ui.fragments.account.SigninFragment"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
