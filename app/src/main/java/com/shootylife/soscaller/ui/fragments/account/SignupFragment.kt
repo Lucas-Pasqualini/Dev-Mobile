@@ -1,5 +1,6 @@
 package com.shootylife.soscaller.ui.fragments.account
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -12,6 +13,7 @@ import android.widget.Button
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.shootylife.soscaller.ui.activities.MainActivity
 
 class SignupFragment : Fragment() {
     private val signupViewModel: SignupViewModel by viewModel()
@@ -31,16 +33,16 @@ class SignupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.signUpbutton).setOnClickListener {
-            val editTextEmail = view.findViewById<EditText>(R.id.inputEmail)
-            val editTextPassword = view.findViewById<EditText>(R.id.inputPassword)
+        view.findViewById<Button>(R.id.button).setOnClickListener {
+            val editTextEmail = view.findViewById<EditText>(R.id.editEmail)
+            val editTextPassword = view.findViewById<EditText>(R.id.editPassword)
 
             signupViewModel.signUp(editTextEmail.text.toString(), editTextPassword.text.toString())
                 .observe(viewLifecycleOwner, Observer {
-                    it?.let { firebaseUser ->
-                        firebaseUser.uid
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
+                    it?.let {
+                        val intent = Intent(activity, MainActivity::class.java)
+                        activity?.startActivity(intent)
+                        activity?.finish()
                     }
                 })
         }
