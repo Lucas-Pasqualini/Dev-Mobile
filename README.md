@@ -7,5 +7,6 @@ MDP : Test1234
 - Gestion des messages d'erreur
 - Vérification des champs
 - Refactoring du code 
+- Enregistrer données utilisateurs dans Firebase  
 # Authors
 PASQUALINI Lucas & DROISSART Nicolas & D'ALMEIDA Denis & DUTOIT Louis
