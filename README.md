@@ -1,10 +1,10 @@
 # SOS caller
 Application Kotlin pour notre cours de développement mobile.
 # Compte test
-User : user_test@gmail.com
+User : user_test@gmail.com  
 MDP : Test1234
 # Points à améliorer
-- Gestion et messages d'erreur
+- Gestion des messages d'erreur
 - Vérification des champs
 - Refactoring du code 
 # Authors
